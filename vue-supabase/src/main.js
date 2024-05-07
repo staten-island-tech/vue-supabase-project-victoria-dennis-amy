@@ -13,7 +13,7 @@ app.use(router)
 
 app.mount('#app')
 
-const countries=[
+const countries1=[
  
         "Antigua and Barbuda",
         "Argentina",
