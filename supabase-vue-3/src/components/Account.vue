@@ -86,8 +86,8 @@ async function signOut() {
       <input id="username" type="text" v-model="username" />
     </div>
     <div>
-      <label for="website">Website</label>
-      <input id="website" type="url" v-model="website" />
+<!--       <label for="website">Website</label>
+      <input id="website" type="url" v-model="website" /> -->
     </div>
 
     <div>
