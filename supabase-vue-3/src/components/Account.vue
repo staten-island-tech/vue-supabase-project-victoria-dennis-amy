@@ -7,7 +7,7 @@ const { session } = toRefs(props)
 
 const loading = ref(true)
 const username = ref('')
-const website = ref('')
+/* const website = ref('') */
 const avatar_url = ref('')
 
 onMounted(() => {
@@ -21,7 +21,7 @@ async function getProfile() {
 
     const { data, error, status } = await supabase
       .from('profiles')
-      .select(`username, website, avatar_url`)
+      .select(`username, avatar_url`) //website
       .eq('id', user.id)
       .single()
 
@@ -29,7 +29,7 @@ async function getProfile() {
 
     if (data) {
       username.value = data.username
-      website.value = data.website
+      /* website.value = data.website */
       avatar_url.value = data.avatar_url
     }
   } catch (error) {
@@ -47,7 +47,7 @@ async function updateProfile() {
     const updates = {
       id: user.id,
       username: username.value,
-      website: website.value,
+/*       website: website.value, */
       avatar_url: avatar_url.value,
       updated_at: new Date(),
     }
