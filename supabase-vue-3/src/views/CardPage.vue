@@ -7,13 +7,14 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import {supabase} from '../supabase';
-const countries = ref('getCountries');
+let countries = ref('getCountries');
 
   async function getCountries(){
     const { data, error } = await supabase
   .from('countries')
   .select("*")
-  console.log(data)
+  countries=data
+  console.log(countries)
 
   }
 onMounted(()=>{
