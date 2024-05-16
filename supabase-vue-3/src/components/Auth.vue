@@ -24,12 +24,12 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <form @submit.prevent = "handleLogin">
+<!--   <form @submit.prevent = "handleLogin">
     <input class = "inputField" required type=""/>
 
-  </form>
+  </form> -->
   
-<!--   <form class="row flex-center flex" @submit.prevent="handleLogin">    
+  <form class="row flex-center flex" @submit.prevent="handleLogin">    
      <div class="col-6 form-widget">
       <h1 class="header">Supabase + Vue 3</h1>
       <p class="description">Sign in via magic link with your email below</p>
@@ -45,5 +45,5 @@ const handleLogin = async () => {
         />
       </div>
     </div> 
-  </form> -->
+  </form>
 </template>
