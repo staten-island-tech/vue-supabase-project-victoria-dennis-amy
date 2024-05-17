@@ -7,6 +7,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import {supabase} from '../supabase';
+import CountryCard from  '@/components/CountryCard.vue';
 let countries = ref('getCountries');
 
   async function getCountries(){
@@ -19,6 +20,7 @@ let countries = ref('getCountries');
   }
 onMounted(()=>{
   getCountries()
+  
 })
  
 /* await supabase
