@@ -1,6 +1,7 @@
 <template>
     <div>
-<h2>cjklxvbklzjxcvhbhlkzxb</h2>
+      <CountryCard
+      v-for=""
     </div>
 </template>
 
