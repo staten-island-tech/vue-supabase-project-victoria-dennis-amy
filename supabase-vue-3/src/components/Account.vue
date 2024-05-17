@@ -7,6 +7,7 @@ const { session } = toRefs(props)
 
 const loading = ref(true)
 const username = ref('')
+const full_name = ref('')
 /* const website = ref('') */
 const avatar_url = ref('')
 
@@ -21,7 +22,7 @@ async function getProfile() {
 
     const { data, error, status } = await supabase
       .from('profiles')
-      .select(`username, avatar_url`) //website
+      .select(`username, full_name, avatar_url`) //website
       .eq('id', user.id)
       .single()
 
@@ -29,6 +30,7 @@ async function getProfile() {
 
     if (data) {
       username.value = data.username
+      full_name.value = data.full_name
       /* website.value = data.website */
       avatar_url.value = data.avatar_url
     }
@@ -47,6 +49,7 @@ async function updateProfile() {
     const updates = {
       id: user.id,
       username: username.value,
+      full_name: full_name.value,
 /*       website: website.value, */
       avatar_url: avatar_url.value,
       updated_at: new Date(),
@@ -82,8 +85,12 @@ async function signOut() {
       <input id="email" type="text" :value="session.user.email" disabled />
     </div>
     <div>
-      <label for="username">Name</label>
+      <label for="username">Username</label>
       <input id="username" type="text" v-model="username" />
+    </div>
+    <div>
+      <label for="name">Name</label>
+      <input id="name" type="text" v-model="full_name" />
     </div>
     <!-- <div>
       <label for="website">Website</label>
