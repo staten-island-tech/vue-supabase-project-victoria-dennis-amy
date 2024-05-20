@@ -81,15 +81,15 @@ async function signOut() {
 <template>
   <form class="form-widget" @submit.prevent="updateProfile">
     <div>
-      <label for="email">Email</label>
+      <label for="email">Email: </label>
       <input id="email" type="text" :value="session.user.email" disabled />
     </div>
     <div>
-      <label for="username">Username</label>
+      <label for="username">Username: </label>
       <input id="username" type="text" v-model="username" />
     </div>
     <div>
-      <label for="name">Name</label>
+      <label for="name">Name: </label>
       <input id="name" type="text" v-model="full_name" />
     </div>
     <!-- <div>
