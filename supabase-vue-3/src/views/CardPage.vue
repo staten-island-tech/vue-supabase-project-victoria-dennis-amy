@@ -1,7 +1,8 @@
 <template>
     <div>
       <CountryCard
-      v-for=""
+      v-for="item in countries"
+      :name="country.name"
     </div>
 </template>
 
