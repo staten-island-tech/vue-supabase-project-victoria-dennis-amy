@@ -1,16 +1,18 @@
 <template>
     <div>
-      <CountryCard
+      <CountryCard 
       v-for="item in countries"
-      :name="country.name"
+      :Name="item"
+      :key="item.id"
+      />
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import {supabase} from '../supabase';
 import CountryCard from  '@/components/CountryCard.vue';
-let countries = ref('getCountries');
+let countries = ref('');
 
   async function getCountries(){
     const { data, error } = await supabase
@@ -20,7 +22,7 @@ let countries = ref('getCountries');
   console.log(countries)
 
   }
-onMounted(()=>{
+onBeforeMount(()=>{
   getCountries()
   
 })
