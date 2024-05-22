@@ -1,15 +1,12 @@
 <template>
     <div>
-      <CountryCard 
-      v-for="item in countries"
-      :Name="item"
-      :key="item.id"
-      />
+      <h1>Countries</h1>
+      <h2 v-for="country in countries">{{ country.name }}</h2>
     </div>
 </template>
 
 <script setup>
-import { onBeforeMount, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import {supabase} from '../supabase';
 import CountryCard from  '@/components/CountryCard.vue';
 let countries = ref('');
@@ -18,12 +15,12 @@ let countries = ref('');
     const { data, error } = await supabase
   .from('countries')
   .select("*")
-  countries=data
+  countries.value=data
   console.log(countries)
 
   }
-onBeforeMount(()=>{
-  getCountries()
+onMounted(async ()=>{
+  await getCountries()
   
 })
  
@@ -32,6 +29,6 @@ onBeforeMount(()=>{
   .insert({ id: 1, name: 'Denmark' }) */
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 
 </style>
