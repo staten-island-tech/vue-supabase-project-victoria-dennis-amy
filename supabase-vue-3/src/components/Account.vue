@@ -84,6 +84,8 @@ async function signOut() {
     <div>
       <label for="username">Name</label>
       <input id="username" type="text" v-model="username" />
+ 
+      //add name
     </div>
     <!-- <div>
       <label for="website">Website</label>
