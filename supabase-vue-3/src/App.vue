@@ -26,6 +26,7 @@ import HelloWorld from './components/HelloWorld.vue'
  import Account from './views/Account.vue'
  import Auth from './components/Auth.vue'
  import { supabase } from './supabase'
+ import { RouterLink } from 'vue-router'
  
  const session = ref()
  
@@ -41,8 +42,19 @@ import HelloWorld from './components/HelloWorld.vue'
  </script>
  
  <template>
+  <header>
+    <div class="wrapper">
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/account">Account</RouterLink>
+        <RouterLink to="/visited">Visited</RouterLink>
+      </nav>
+    </div>
+  </header>
+
    <div class="container" style="padding: 50px 0 100px 0">
      <Account v-if="session" :session="session" />
      <Auth v-else />
+  
    </div>
  </template> 
