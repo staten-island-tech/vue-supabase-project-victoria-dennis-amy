@@ -45,8 +45,8 @@ import HelloWorld from './components/HelloWorld.vue'
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/account">Account</RouterLink>
+        <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/visited">Visited</RouterLink>
       </nav>
     </div>
@@ -57,4 +57,5 @@ import HelloWorld from './components/HelloWorld.vue'
      <Auth v-else />
   
    </div>
+   <router-view/>
  </template> 
