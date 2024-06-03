@@ -1,9 +1,11 @@
 <script setup>
-import { supabase } from '../supabase'
-import { onMounted, ref, toRefs } from 'vue'
+import { supabase } from '../supabase';
+import { onMounted, ref, toRefs } from 'vue';
+import { useSessionStore } from '@/stores/store';
 
 const props = defineProps(['session'])
 const { session } = toRefs(props)
+const store = useSessionStore()
 
 const loading = ref(true)
 const username = ref('')

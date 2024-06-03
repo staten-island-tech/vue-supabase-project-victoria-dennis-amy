@@ -26,16 +26,21 @@ import HelloWorld from './components/HelloWorld.vue'
  import Account from './components/Account.vue'
  import Auth from './components/Auth.vue'
  import { supabase } from './supabase'
+ import { useSessionStore } from './stores/store'
  
  const session = ref()
+ const store = useSessionStore()
+ session.value = store.id
  
  onMounted(() => {
    supabase.auth.getSession().then(({ data }) => {
      session.value = data.session
+     store.id = data.session
    })
  
    supabase.auth.onAuthStateChange((_, _session) => {
      session.value = _session
+     store.id = _session
    })
  })
  </script>
