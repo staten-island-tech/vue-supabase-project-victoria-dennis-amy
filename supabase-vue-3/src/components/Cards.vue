@@ -2,8 +2,8 @@
     <div>
         <h2>{{ name }}</h2>
         <div v-if="session">
-            <Button v-if="toggled" @click="favorited"></Button>
-            <Button v-else @click="favorited"></Button>
+            <Button v-if="toggled" @click="visited"></Button>
+            <Button v-else @click="visited"></Button>
         </div>
     </div>
 </template>
@@ -32,7 +32,7 @@ export default {
         session: Object,
     },
     methods: {
-        favorited: async function() {
+        visited: async function() {
             if(this.toggled === false) {
                 this.toggled === true 
                 console.log(this.session)
@@ -46,8 +46,11 @@ export default {
                 const { data, error } = await supabase
                     .from("profiles")
                     .select()
-                    .eq("id, `${user[0].id}")
-
+                    .eq('id', `${user[0].id}`)
+                console.log(data[0].visited)
+                console.log(error)
+            } else {
+                this.toggled = false;
             }
         }
     }}
