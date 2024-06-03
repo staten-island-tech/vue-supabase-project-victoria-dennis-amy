@@ -4,7 +4,7 @@ import { supabase } from '../supabase.js'
 
 const { data, error } = await supabase.from('profiles').select()
 
-export const useUserStore = defineStore('user', {
+export const useUsers = defineStore('user', {
   state: () => {
     return {
       data:data,

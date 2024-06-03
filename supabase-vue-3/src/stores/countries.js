@@ -5,7 +5,7 @@ import { supabase } from '../supabase.js'
 
 const { data, error } = await supabase.from("countries").select();
 
-export const countries = defineStore("country", {
+export const useCountries = defineStore("country", {
   state: () => {
     return {
       data: data,
