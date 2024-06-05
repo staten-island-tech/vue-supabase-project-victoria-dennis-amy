@@ -45,7 +45,6 @@ import HelloWorld from './components/HelloWorld.vue'
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/account">Account</RouterLink>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/visited">Visited</RouterLink>
       </nav>

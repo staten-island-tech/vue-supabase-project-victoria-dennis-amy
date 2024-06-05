@@ -1,16 +1,16 @@
 <template>
     <div>
         <h2>{{ name }}</h2>
-        <div v-if="session">
-            <Button v-if="toggled" @click="visited"></Button>
-            <Button v-else @click="visited"></Button>
-        </div>
+
+            <Button v-if="toggled" @click="visited" title="Have not visited"/>
+            <Button v-else @click="visited" title="Visited"/>
+
     </div>
 </template>
 
 <script>
-import { useCountries } from "../stores/countries.vue"
-import { useUsers } from "../stores/users.vue"
+import { useCountries } from "../stores/countries.js"
+import { useUsers } from "../stores/users.js"
 import { supabase } from "@/supabase";
 import Button from "../components/Button.vue"
 
@@ -27,7 +27,7 @@ export default {
         Button,
     },
     props: {
-        title: String,
+        name: String,
         id: Number,
         session: Object,
     },
@@ -52,7 +52,9 @@ export default {
             } else {
                 this.toggled = false;
             }
+            console.log(supabase)
+            console.log(this.session)
         }
-    }}
-
+    }
+}
 </script>
