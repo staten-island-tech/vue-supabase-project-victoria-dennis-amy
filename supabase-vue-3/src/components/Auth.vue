@@ -1,26 +1,50 @@
 <script setup>
 import { ref } from 'vue'
 import { supabase } from '../supabase'
+import { useStore } from '@/stores/counter';
 
 const loading = ref(false)
 const email = ref('')
+const password = ref('')
+
+const store = useStore()
+
+async function signUp() {
+    let { data, error } = await supabase.auth.signUp({
+    email: email.value,
+    password: password.value,    
+  })
+  if (error) {
+    console.log(error)
+  }
+  else {
+    handleLogin()
+  }
+}
 
 const handleLogin = async () => {
   try {
     loading.value = true
-    const { error } = await supabase.auth.signInWithOtp({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: email.value,
+      password: password.value,
     })
+
+    const currentuser = data
+    store.logged = true
+    store.current_id = currentuser.user.id
+    console.log(store.current_id)
+
     if (error) throw error
-    alert('Check your email for the login link!')
+    
   } catch (error) {
     if (error instanceof Error) {
-      alert(error.message)
+
     }
-  } finally {
-    loading.value = false
-  }
+  } 
 }
+
+
 </script>
 
 <template>
@@ -32,17 +56,14 @@ const handleLogin = async () => {
   <form class="row flex-center flex" @submit.prevent="handleLogin">    
      <div class="col-6 form-widget">
       <h1 class="header">Destinations Tracker</h1>
-      <p class="description">Sign in via magic link with your email below</p>
+      <p class="description">Sign inwith your email and password below</p>
       <div>
         <input class="inputField" required type="email" placeholder="Your email" v-model="email" />
+        <input required type="password" placeholder="Your password" v-model="password"/>
       </div>
       <div>
-        <input
-          type="submit"
-          class="button block"
-          :value="loading ? 'Loading' : 'Send magic link'"
-          :disabled="loading"
-        />
+        <button @click="signUp">Sign Up</button>
+        <button @click="handleLogin">Sign In</button>
       </div>
     </div> 
   </form>

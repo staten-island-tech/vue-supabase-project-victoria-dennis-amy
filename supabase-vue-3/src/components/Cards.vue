@@ -1,6 +1,7 @@
 <template>
     <div>
         <h2>{{ name }}</h2>
+        <h2>ID: {{ id }}</h2>
 
             <Button v-if="toggled" @click="visited" title="Have not visited"/>
             <Button v-else @click="visited" title="Visited"/>
