@@ -26,17 +26,21 @@ const countries = useCountries()
 const pathname = window.location.pathname
 const visitedCountries = []
 
-onMounted(() => {
-  supabase.auth.getSession().then(({ data }) => {
-    session.value = data.session
-    const user = users.data.filter(
+
+onMounted(async () => {
+  const {data, error} = await supabase.from("visited").select()
+  supabase.auth.getSession().then(({ info }) => {
+    session.value = info.session
+    console.log(data)
+    console.log(info)
+     const user = users.data.filter(
       (user) => user.id === session.value.user.id
     ) [0]
-    user.favorites.forEach((visited) => {
+    user.visited.forEach((visited) => {
       visitedCountries.push(
         countries.data.filter((country) => country.id === visited) [0]
       )
-    })
+    }) 
   })
 
   supabase.auth.onAuthStateChange((_, _session) => {

@@ -34,11 +34,12 @@ export default {
     },
     methods: {
         visited: async function(countryName) {
+            const { userData, error } = await supabase.from('profiles').select()
             if (!this.toggled) {
                 this.toggled = true;
                 console.log(this.session);
 
-                let user = this.users.data.find(
+                let user = userData.find(
                     (user) => user.id === this.session.user.id
                 );
                 if (!user) {
@@ -71,7 +72,7 @@ export default {
                 const { insertData, insertError } = await supabase
                     .from('visited')
                     .insert([
-                        { id: user.id, visit_time: new Date(), country_visited: countryName }
+                        { id: user.id, created_at: new Date(), visited: this.name }
                     ]);
 
                 if (insertError) {
@@ -79,7 +80,7 @@ export default {
                     return;
                 }
 
-                console.log(insertData);
+                console.log(insertData, "hey");
             } else {
                 this.toggled = false;
             }

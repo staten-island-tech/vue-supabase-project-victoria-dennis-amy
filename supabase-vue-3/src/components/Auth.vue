@@ -10,6 +10,7 @@ const password = ref('')
 const store = useStore()
 
 async function signUp() {
+  console.log(email.value, password.value)
     let { data, error } = await supabase.auth.signUp({
     email: email.value,
     password: password.value,    
@@ -25,10 +26,11 @@ async function signUp() {
 const handleLogin = async () => {
   try {
     loading.value = true
-    const { data, error } = await supabase.auth.signInWithPassword({
+    console.log(email.value, password.value)
+    /* const { data, error } = await supabase.auth.signInWithPassword({
       email: email.value,
       password: password.value,
-    })
+    }) */
 
     const currentuser = data
     store.logged = true
