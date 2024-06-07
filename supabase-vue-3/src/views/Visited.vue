@@ -30,9 +30,10 @@ const visitedCountries = []
 onMounted(async () => {
   const {data, error} = await supabase.from("visited").select()
   supabase.auth.getSession().then(({ info }) => {
-    session.value = info.session
     console.log(data)
     console.log(info)
+    session.value = info.session
+    
      const user = users.data.filter(
       (user) => user.id === session.value.user.id
     ) [0]
