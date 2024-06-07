@@ -32,28 +32,58 @@ export default {
         session: Object,
     },
     methods: {
-        visited: async function() {
-            if(this.toggled === false) {
-                this.toggled === true 
-                console.log(this.session)
-                let user = this.users.data.filter(
-                    (user) => user.id === this.session.user.id
-                )
-                supabase.from("profiles").select(`id, ${user.id}`)
-                console.log(user[0])
+        visited: async function(countryName) {
+            if (!this.toggled) {
+                this.toggled = true;
+                console.log(this.session);
 
-                console.log(this.id)
+                let user = this.users.data.find(
+                    (user) => user.id === this.session.user.id
+                );
+                if (!user) {
+                    console.error('User not found');
+                    return;
+                }
+
+                console.log(user);
+                console.log(this.id);
+
+                // Fetch profile data
                 const { data, error } = await supabase
                     .from("profiles")
                     .select()
-                    .eq('id', `${user[0].id}`)
-                console.log(data[0].visited)
-                console.log(error)
+                    .eq('id', user.id);
+
+                if (error) {
+                    console.error('Error fetching profile:', error);
+                    return;
+                }
+
+                if (data.length === 0) {
+                    console.error('Profile not found');
+                    return;
+                }
+
+                console.log(data[0]?.visited);
+
+                // Insert visit data into 'visited' table
+                const { insertData, insertError } = await supabase
+                    .from('visited')
+                    .insert([
+                        { id: user.id, visit_time: new Date(), country_visited: countryName }
+                    ]);
+
+                if (insertError) {
+                    console.error('Error inserting visit:', insertError);
+                    return;
+                }
+
+                console.log(insertData);
             } else {
                 this.toggled = false;
             }
-            console.log(supabase)
-            console.log(this.session)
+            console.log(supabase);
+            console.log(this.session);
         }
     }
 }

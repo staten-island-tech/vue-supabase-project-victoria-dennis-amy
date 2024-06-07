@@ -6,7 +6,8 @@
         v-for="country in visitedCountries"
         :key="country.name"
         :name="country.name"
-        :sesson="session"
+        :id="country.id"
+        :session="session"
     />
 </div>
 </template>
@@ -25,7 +26,7 @@ const pathname = window.location.pathname
 const visitedCountries = []
 
 onMounted(() => {
-  supabase.auth.getSession().then(({ data  }) => {
+  supabase.auth.getSession().then(({ data }) => {
     session.value = data.session
     const user = users.data.filter(
       (user) => user.id === session.value.user.id

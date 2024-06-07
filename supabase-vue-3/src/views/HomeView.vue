@@ -6,7 +6,8 @@
         v-for="country in countries.data"
         :key="country.name"
         :name="country.name"
-        :sesson="session"
+        :id="country.id"
+        :session="session"
     />
 </div>
 </template>
