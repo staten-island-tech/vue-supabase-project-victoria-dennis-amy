@@ -36,10 +36,10 @@ onMounted(async () => {
     
      const user = users.data.filter(
       (user) => user.id === session.value.user.id
-    ) [0]
+    ) 
     user.visited.forEach((visited) => {
       visitedCountries.push(
-        countries.data.filter((country) => country.id === visited) [0]
+        countries.data.filter((country) => country.id === visited) 
       )
     }) 
   })

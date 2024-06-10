@@ -27,10 +27,10 @@ const handleLogin = async () => {
   try {
     loading.value = true
     console.log(email.value, password.value)
-    /* const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: email.value,
       password: password.value,
-    }) */
+    }) 
 
     const currentuser = data
     store.logged = true
