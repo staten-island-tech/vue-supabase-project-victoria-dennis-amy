@@ -2,15 +2,7 @@
   <h1 v-if="session">Visited countries will appear here.</h1>
   <h2 v-if="session">(its locked behind login please spare some points)</h2>
 
-  <div>
-    <Cards
-        v-for="country in visitedCountries"
-        :key="country.name"
-        :name="country.name"
-        :id="country.id"
-        :session="session"
-    />
-</div>
+
 </template>
 
 <script setup>
@@ -36,10 +28,10 @@ onMounted(async () => {
     
      const user = users.data.filter(
       (user) => user.id === session.value.user.id
-    ) [0]
+    ) 
     user.visited.forEach((visited) => {
       visitedCountries.push(
-        countries.data.filter((country) => country.id === visited) [0]
+        countries.data.filter((country) => country.id === visited) 
       )
     }) 
   })
