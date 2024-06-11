@@ -34,10 +34,13 @@ export default {
     },
     methods: {
         visited: async function(countryName) {
-            const { userData, error } = await supabase.from('profiles').select()
+            console.log(this.session.user.id)
+            const { userData, error } = await supabase.from('profiles').select().eq("id", this.session.user.id)
             if (!this.toggled) {
                 this.toggled = true;
                 console.log(this.session);
+
+                console.log(userData)
 
                 let user = userData.find(
                     (user) => user.id === this.session.user.id
