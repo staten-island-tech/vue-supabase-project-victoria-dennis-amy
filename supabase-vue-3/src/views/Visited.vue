@@ -1,32 +1,52 @@
 <template>
-  <h1 v-if="session">Visited countries will appear here.</h1>
-  <h2 v-if="session">(its locked behind login please spare some points)</h2>
+  <h1 v-if="session">Visited Countries</h1>
 
-
+  <ul v-if="session">
+    <li v-for="(country, index) in visitedCountries" :key="index">
+      {{ country }}
+    </li>
+  </ul>
 </template>
 
 <script setup>
-import Cards from "../components/Cards.vue"
-import { onMounted, ref, computed } from "vue"
-import { supabase } from "@/supabase";
-import { useUsers } from "@/stores/users";
-import { useCountries } from "@/stores/countries";
+import Cards from '../components/Cards.vue'
+import { onMounted, ref, computed } from 'vue'
+import { supabase } from '@/supabase'
+import { useUsers } from '@/stores/users'
+import { useCountries } from '@/stores/countries'
 
-const session = ref()
+const session = ref(false)
 const users = useUsers()
 const countries = useCountries()
 const pathname = window.location.pathname
-const visitedCountries = []
+const visitedCountries = ref([])
 
+const visitedCountryNames = computed(() => {
+  return visitedCountries.value.flatMap((country) => country.map((c) => c.name))
+})
 
 onMounted(async () => {
-  const {data, error} = await supabase.from("visited").select()
-  supabase.auth.getSession().then(({ info }) => {
-    console.log(data)
-    console.log(info)
-    session.value = info.session
-    
-     const user = users.data.filter(
+  const { data, error } = await supabase.from('visited').select()
+  supabase.auth.getSession().then(({ session }) => {
+    console.log(session)
+    session.value = !!session
+
+    const currentUserId = session.user.id
+
+    console.log(`Current session ID: ${currentUserId}`)
+
+    const currentUserVisitedData = data.filter((visit) => visit.user_id === currentUserId)
+
+    visitedCountries.value = currentUserVisitedData.map((visit) => visit.country_name || '')
+  })
+})
+
+supabase.auth.onAuthStateChange((_, _session) => {
+  session.value = !!_session
+})
+</script>
+
+<!-- const user = users.data.filter(
       (user) => user.id === session.value.user.id
     ) 
     user.visited.forEach((visited) => {
@@ -40,4 +60,4 @@ onMounted(async () => {
     session.value = _session;
   })
 })
-</script>
+</script> -->
