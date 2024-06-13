@@ -1,5 +1,5 @@
 <template>
-  <h1 v-if="session">Visited Countries</h1>
+  <h1 v-if="session">Ids of your Visited Countries!</h1>
 
   <ul v-if="session">
     <li v-for="(country, index) in visitedCountries" :key="index">
@@ -26,19 +26,19 @@ const visitedCountryNames = computed(() => {
 })
 
 onMounted(async () => {
-  const { data, error } = await supabase.from('visited').select()
-  supabase.auth.getSession().then(({ session }) => {
-    console.log(session)
-    
+  const { data, error } = await supabase.from('visited').select();
+  const session = await supabase.auth.getSession();
+  console.log(session)
+  
 
-    const currentUserId = session.user.id
+  const currentUserId = session.data.session.user.id
 
-    console.log(`Current session ID: ${currentUserId}`)
+  console.log(`Current session ID: ${currentUserId}`)
 
-    const currentUserVisitedData = data.filter((visit) => visit.user_id === currentUserId)
+  const currentUserVisitedData = data.filter((visit) => visit.user_id === currentUserId)
 
-    visitedCountries.value = currentUserVisitedData.map((visit) => visit.country_name || '')
-  })
+  visitedCountries.value = currentUserVisitedData.map((visit) => visit.country_id || '')
+  console.log(visitedCountries)
 })
 
 supabase.auth.onAuthStateChange((_, _session) => {
