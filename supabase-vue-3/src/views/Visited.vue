@@ -29,7 +29,7 @@ onMounted(async () => {
   const { data, error } = await supabase.from('visited').select()
   supabase.auth.getSession().then(({ session }) => {
     console.log(session)
-    session.value = !!session
+    
 
     const currentUserId = session.user.id
 
